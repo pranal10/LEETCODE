@@ -13,17 +13,20 @@ public:
     ListNode* rotateRight(ListNode* head, int k) {
 
         // Empty list or only one node
-        if (head == NULL || head->next == NULL) {
-            return head;
-        }
+      ListNode* dummy = new ListNode(0);
+     dummy->next = head;
 
         // Find length and last node
-        int l = 1;
-        ListNode* temp = head;
+        int l = 0;
+        ListNode* temp = dummy;
 
         while (temp->next != NULL) {
             temp = temp->next;
             l++;
+        }
+
+          if (l == 0) {
+            return head;
         }
 
         // k can be greater than length
@@ -35,7 +38,7 @@ public:
         }
 
         // Make the list circular
-        temp->next = head;
+        temp->next = dummy->next;
 
         // Find the new tail
         ListNode* newTail = head;
@@ -46,10 +49,11 @@ public:
 
         // Node after newTail becomes new head
         ListNode* newHead = newTail->next;
+        dummy->next=newHead;
 
         // Break the circle
         newTail->next = NULL;
 
-        return newHead;
+        return dummy->next;
     }
 };
